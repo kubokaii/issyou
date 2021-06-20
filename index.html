@@ -22,7 +22,15 @@
         color: yellow;
       }
     </style>
-    <bgsound src="bgm.wav">
+    <script language="JavaScript"><!--
+function setBG(n)
+{
+	document.body.style.backgroundImage = "url(sample"+n+".gif)";
+}
+// --></script>
+<audio src="bgm.mp3" autoplay loop>
+  あなたのブラウザーは <code>audio</code>要素をサポートしていません。
+</audio>
   </head>
   <body background=https://img.gifmagazine.net/gifmagazine/images/2971470/original.gif>
      
@@ -36,6 +44,11 @@
     <div class="txt">
     </div>
   </div>
+    <form name="myFORM">
+    <input type="button" value="１番目の画像" onClick="setBG(1)"><br>
+    <input type="button" value="２番目の画像" onClick="setBG(2)"><br>
+    <input type="button" value="３番目の画像" onClick="setBG(3)"><br>
+  </form>
   
 
   </body>
