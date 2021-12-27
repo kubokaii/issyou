@@ -1,55 +1,117 @@
-
-
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>淫夢打〜一章語録編〜</title>
-    <style>
-      #text {
-        font-size: 4em;
-        margin-top: 50px;
-        font-size: 6em;
-        font-weight: bold;
-        color: purple;
-        text-align: center;
-      }
-      span {
-        transition: all 300ms 0s ease;
-      }
-      .add-blue {
-        font-size: 0.5em;
-        color: yellow;
-      }
-    </style>
-    <script language="JavaScript"><!--
-function setBG(n)
-{
-	document.body.style.backgroundImage = "url(sample"+n+".gif)";
-}
-// --></script>
-<audio src="bgm.mp3" autoplay loop>
-  あなたのブラウザーは <code>audio</code>要素をサポートしていません。
-</audio>
-  </head>
-  <body background=https://img.gifmagazine.net/gifmagazine/images/2971470/original.gif>
-     
-    <p id="text"></p>
-<script src="count.php"></script>
-    <script src="code.js"></script>
-     <div class="holder">
-    <div class="first"></div>
-    <div class="second"></div>
-    <div class="third"></div>
-    <div class="txt">
+    <head>
+        <title>淫夢打　一章語録編</title>
+<meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="typing.css" />
+    <audio src ="https://sugtao4423.xyz/elements/inm/sozai/%E7%A9%BA%E6%89%8B%E9%83%A8/%E9%87%8E%E7%8D%A3/%E9%87%8E%E7%8D%A3%E3%80%8CFOO%E2%86%91%E6%B0%97%E6%8C%81%E3%81%A1%E3%81%84%E3%81%84%EF%BD%9E%E3%80%8D.wav" id="missaudio">現環境では音が鳴りません</audio>
+    <audio src ="https://sugtao4423.xyz/elements/inm/sozai/%E7%A9%BA%E6%89%8B%E9%83%A8/%E9%87%8E%E7%8D%A3/%E9%87%8E%E7%8D%A3%E3%80%8C%E3%83%8C%E3%83%83%EF%BC%81%E3%80%8D.wav" id="correctaudio"></audio>
+ <script>
+var wordlist = ["多田野数人","HTN","だいぼう","谷岡","","おいゴラァ免許見せろ","とりあえずお前土下座しろよ","あくしろよ","犬のマネしろよ"];
+var wordlistJapanese = ["tadanokazuhito","HTN","DB","TNOK","oigoraxamenkyomisero","toriaezuomaedogezasiroyo","akusiroyo","inunomanesiroyo"];
+     var time_limit = 90;
+     var readytime = 3;
+     var score;
+     var correct;
+     var mistake;
+     var char_num = 0;
+     var word_char;
+     var random;
+     function ready(){
+         readytime = 3;
+         scoredis.innerHTML="";
+         start_button.style.visibility ="hidden";
+         var readytimer = setInterval(function(){
+             count.innerHTML=readytime;
+             readytime--;
+             if(readytime < 0){
+                clearInterval(readytimer);
+                 gameStart();
+                }
+         },1000);
+     }
+     function gameStart(){
+         score = 0.0;
+         mistake = 0;
+         correct = 0;
+         wordDisplay();
+         var time_remaining = time_limit;
+         var gametimer = setInterval(function(){
+            count.innerHTML="残り時間："+time_remaining;
+             time_remaining--;
+             if(time_remaining <= 0){
+             clearInterval(gametimer);
+                 finish();
+         }
+         },1000);
+     }
+     function wordDisplay(){
+         random = Math.floor( Math.random() * wordlist.length );
+         word.innerHTML=wordlist[random];
+         japanese.innerHTML=wordlistJapanese[random];
+         charInsort();
+     }
+     function charInsort(){
+         word_char = wordlist[random].charAt(char_num);
+     }
+     function finish(){
+         score = Math.floor(Math.pow(correct,2) * Math.pow((correct/(correct+mistake)),5));
+         scoredis.innerHTML="スコア:"+score+"点"+"<hr>正タイプ数:"+correct+"<br>ミスタイプ数:"+mistake+"<br>正答率"+(correct/(correct+mistake)*100).toFixed(1)+"%";
+         count.innerHTML="";
+         word.innerHTML="";
+         japanese.innerHTML="";
+         start_button.style.visibility ="visible";
+         word_char=0;
+         random = 0;
+         char_num = 0;
+     }
+document.onkeydown = function(e) {
+    if(e.keyCode == 189){
+       keyStr = "-";
+       }else if(e.keyCode == 188){
+                keyStr = ","
+                }else{
+ var keyStr = String.fromCharCode(e.keyCode);
+    keyStr = keyStr.toLowerCase();
+       }
+    if(keyStr == word_char){
+        document.getElementById('missaudio').pause();
+        document.getElementById('missaudio').currentTime = 0;
+        document.getElementById('correctaudio').pause();
+                   document.getElementById('correctaudio').currentTime = 0;
+        document.getElementById('correctaudio').play();
+        word.innerHTML="<span style='color: red;'>"+wordlist[random].substr(0,char_num+1)+"</span>"+wordlist[random].substr(char_num+1,wordlist[random].length);
+        char_num++;
+        correct++;
+        charInsort();
+       }else{
+                      document.getElementById('missaudio').pause();
+           document.getElementById('missaudio').currentTime = 0;
+           document.getElementById('correctaudio').pause();
+           document.getElementById('correctaudio').currentTime = 0;
+           mistake++;
+           document.getElementById('missaudio').play();
+       }
+    if(char_num == wordlist[random].length){
+        char_num=0;
+        wordDisplay();
+       }
+};
+ 
+</script>
+        <script src="typing.css">
+            </script>
+           </head>
+<body>
+    
+                <div class="wrap">
+                <input type="button" id="start_button" value="start" onclick="ready()" style="text-align: center">
+                <div id="count"></div>
+                    <h1><div id="japanese"></div></h1>
+                    <h2><div id="word"></div></h2>
+                <div id="scoredis"></div>
     </div>
-  </div>
-    <form name="myFORM">
-    <input type="button" value="１番目の画像" onClick="setBG(1)"><br>
-    <input type="button" value="２番目の画像" onClick="setBG(2)"><br>
-    <input type="button" value="３番目の画像" onClick="setBG(3)"><br>
-  </form>
-  
-
-  </body>
+    
+</body>
+ 
 </html>
